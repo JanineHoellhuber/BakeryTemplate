@@ -39,7 +39,8 @@ namespace Bakery.Wpf.ViewModels
             }
         }
 
-      
+        [MinLength(1, ErrorMessage = "Produktname muss mindestens 1 Zeichen lang sein")]
+        [MaxLength(20, ErrorMessage = "Produktname darf maximal 20 Zeichen lang sein")]
         public string Name
         {
             get => _productName;
@@ -89,17 +90,20 @@ namespace Bakery.Wpf.ViewModels
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            throw new System.NotImplementedException();
+            return new List<ValidationResult> 
+            { 
+                ValidationResult.Success
+            };
         }
-        private ICommand _cmdSaveCommand;
+        private ICommand _cmdSave;
 
-        public ICommand CmdSaveCommand
+        public ICommand CmdSave
         {
             get
             {
-                if (_cmdSaveCommand == null)
+                if (_cmdSave == null)
                 {
-                    _cmdSaveCommand = new RelayCommand(
+                    _cmdSave = new RelayCommand(
                         execute: async _ =>
                         {
                             ValidateViewModelProperties();
@@ -149,9 +153,9 @@ namespace Bakery.Wpf.ViewModels
                         );
                 }
 
-                return _cmdSaveCommand;
+                return _cmdSave;
             }
-            set => _cmdSaveCommand = value;
+            set => _cmdSave = value;
         }
 
         private ICommand _cmdUndo;
