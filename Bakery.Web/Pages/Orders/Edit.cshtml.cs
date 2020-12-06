@@ -21,7 +21,7 @@ namespace Bakery.Web.Pages
         public OrderWithItemsDto OrderWithItems { get; set; }
         public List<SelectListItem> Products { get; set; }
         [BindProperty]
-        public int SelectedProductId { get; set; }
+        public int SelectedId { get; set; }
         [BindProperty]
         public int Amount { get; set; }
 

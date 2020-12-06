@@ -28,7 +28,10 @@ namespace Bakery.Web.Pages
             Orders = (await _uow.Orders
                       .GetAllDtosAsync()).ToArray();
 
-
+            if (Orders == null)
+            {
+                Orders = new OrderDto[0];
+            }
             return Page();
     }
 
@@ -38,8 +41,11 @@ namespace Bakery.Web.Pages
                 Orders = (await _uow.Orders
                   .GetFilteredByLastname(FilterLastName))
                   .ToArray();
-            
 
+            if (Orders == null)
+            {
+                Orders = new OrderDto[0];
+            }
             return Page();
     }
   }

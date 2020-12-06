@@ -18,19 +18,27 @@ namespace Bakery.Web.ApiControllers
       _uow = uow;
     }
 
-    // GET: api/Orders
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<OrderWithItemsDto>>> GetOrders()
-    {
-      throw new NotImplementedException();
-    }
+        // GET: api/Orders
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OrderWithItemsDto>>> GetOrders()
+        {
+            var result = await _uow.Orders.GeItemsAsync();
+
+           
+
+            return Ok(result);
+        }
 
     // GET: api/Orders/ordersByCustomerId/2
-    [HttpGet("ordersByCustomerId/{id}")]
+        [HttpGet("ordersByCustomerId/{id}")]
     public async Task<ActionResult<IEnumerable<OrderWithItemsDto>>> GetOrdersByCustomer(int id)
     {
-      throw new NotImplementedException();
-    }
+            var result = await _uow.Orders.GetByIdAsync(id);
+
+           
+
+            return Ok(result);
+        }
 
   }
 }

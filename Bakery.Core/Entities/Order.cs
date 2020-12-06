@@ -7,7 +7,7 @@ namespace Bakery.Core.Entities
 {
   public class Order: EntityObject
     {
-        [Required]
+        [Required(ErrorMessage = "Bestellnummer darf nicht leer sein!")]
         [Display(Name ="Bestellnr.")]
         public string OrderNr { get; set; }
 

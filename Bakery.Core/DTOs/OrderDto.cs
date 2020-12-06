@@ -7,8 +7,8 @@ namespace Bakery.Core.DTOs
   public class OrderDto
   {
     public int OrderId { get; set; }
-
-    public string OrderNr { get; set; }
+     [Required(ErrorMessage = "Bestellnummer darf nicht leer sein!")]
+     public string OrderNr { get; set; }
     [Display(Name = "Datum")]
     [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}",
         ApplyFormatInEditMode = true)]
@@ -24,7 +24,7 @@ namespace Bakery.Core.DTOs
         OrderId = o.Id;
         OrderNr = o.OrderNr;
         Date = o.Date;
-        CustomerName = o.Customer.FullName;
+      //  CustomerName = o.Customer.FullName;
       }
     }
   }

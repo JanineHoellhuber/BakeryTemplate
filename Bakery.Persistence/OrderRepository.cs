@@ -62,5 +62,15 @@ namespace Bakery.Persistence
                     .SingleOrDefaultAsync();
 
         }
+
+        public async Task<IEnumerable<OrderWithItemsDto>> GeItemsAsync()
+        {
+            return await _dbContext.Orders
+                    .Select(o => new OrderWithItemsDto(o))
+                    .ToArrayAsync();
+        }
+
+      
+
     }
 }
