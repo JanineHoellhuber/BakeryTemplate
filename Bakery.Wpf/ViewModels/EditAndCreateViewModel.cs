@@ -13,7 +13,7 @@ namespace Bakery.Wpf.ViewModels
     internal class EditAndCreateViewModel : BaseViewModel
     {
         private IWindowController controller;
-        private ProductDto selectedProduct;
+        private ProductDto _selectedProduct;
         private Product _product;
         private string _productNr;
         private string _productName;
@@ -63,7 +63,7 @@ namespace Bakery.Wpf.ViewModels
         public EditAndCreateViewModel(IWindowController controller, ProductDto selectedProduct) : base(controller)
         {
             this.controller = controller;
-
+            _selectedProduct = selectedProduct;
             if (selectedProduct != null)
             {
                 NewProduct();
@@ -77,14 +77,14 @@ namespace Bakery.Wpf.ViewModels
         public void NewProduct() {
             Product = new Product()
             {
-                Id = selectedProduct.Id,
-                ProductNr = selectedProduct.ProductNr,
-                Name = selectedProduct.Name,
-                Price = selectedProduct.Price,
+                Id = _selectedProduct.Id,
+                ProductNr = _selectedProduct.ProductNr,
+                Name = _selectedProduct.Name,
+                Price = _selectedProduct.Price,
             };
-            ProductNr = selectedProduct.ProductNr;
-            Name = selectedProduct.Name;
-            Price = selectedProduct.Price.ToString();
+            ProductNr = _selectedProduct.ProductNr;
+            Name = _selectedProduct.Name;
+            Price = _selectedProduct.Price.ToString();
         }
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -113,8 +113,7 @@ namespace Bakery.Wpf.ViewModels
                                     Product productDb = await uow.Products.GetByIdAsync(Product.Id);
                                     productDb.ProductNr = ProductNr;
                                     productDb.Name = Name;
-                                    productDb.Price = Convert.ToDouble(Price);
-                                    uow.Products.Update(productDb);
+                                    productDb.Price = Double.Parse(Price);
                                 }
                                 else
                                 {
@@ -155,27 +154,38 @@ namespace Bakery.Wpf.ViewModels
             set => _cmdSaveCommand = value;
         }
 
-        private ICommand _cmdCancelCommand;
+        private ICommand _cmdUndo;
 
-        public ICommand CmdCancelCommand
+        public ICommand CmdUndo
         {
             get
             {
-                if (_cmdCancelCommand == null)
+                if (_cmdUndo == null)
                 {
-                    _cmdCancelCommand = new RelayCommand(
+                    _cmdUndo = new RelayCommand(
                         execute: _ =>
                         {
-                            Controller.CloseWindow(this);
+                            if (create)
+                            {
+                                ProductNr = string.Empty;
+                                Name = string.Empty;
+                                Price = string.Empty;
+                                return;
+                            }
+
+                            ProductNr = _product.ProductNr;
+                            Name = _product.Name;
+                            Price = _product.Price.ToString();
                         },
                         canExecute => true
                         );
                 }
 
-                return _cmdCancelCommand;
+                return _cmdUndo;
             }
-            set => _cmdCancelCommand = value;
+            set => _cmdUndo = value;
         }
 
+     
     }
 }
