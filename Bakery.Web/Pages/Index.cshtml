@@ -6,34 +6,44 @@
 
 <h1>Bestellübersicht</h1>
 <form method="post" asp-page-handler="Search">
-  <div class="form-group">
-    
-    <button type="submit" class="btn btn-primary">Suchen</button>
-    
+    <div class="form-group">
+        <label asp-for="@Model.FilterLastName" class="control-label">Nachname</label>
+        <input asp-for="@Model.FilterLastName" />
+        <button type="submit" class="btn btn-primary">Suchen</button>
 
-  </div>
+
+    </div>
 </form>
 <p>
   <a class="btn btn-primary" asp-page="./Orders/Create">Neue Bestellung anlegen</a>
 </p>
 <table class="table">
-  <thead>
-    <tr>
-      <th>
-        Bestellnummer
-      </th>
-      <th>
-        Kunde
-      </th>
-      <th>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-   
-
-
-
-
-  </tbody>
+    <thead>
+        <tr>
+            <th>
+                Bestellnummer
+            </th>
+            <th>
+                Kunde
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var o in @Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => o.OrderNr)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => o.CustomerName)
+                </td>
+                <td>
+                    <a asp-page="./Orders/Edit" asp-route-orderId="@o.OrderId">Bearbeiten</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

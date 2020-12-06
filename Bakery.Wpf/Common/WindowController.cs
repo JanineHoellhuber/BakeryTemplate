@@ -18,7 +18,9 @@ namespace Bakery.Wpf.Common
         // Wenn viewModel null ist -> ArgumentNullException
         null => throw new ArgumentNullException(nameof(viewModel)),
 
+      
         MainWindowViewModel _ => new MainWindow(),
+        EditAndCreateViewModel _ => new EditAndCreateWindow(),
 
         // default -> InvalidOperationException
         _ => throw new InvalidOperationException($"Unbekanntes ViewModel '{viewModel}'"),

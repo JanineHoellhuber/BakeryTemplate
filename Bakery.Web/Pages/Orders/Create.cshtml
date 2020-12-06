@@ -10,29 +10,26 @@
 <hr />
 <div class="row">
   <div class="col-md-4">
-    <form method="post">
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-      <div class="form-group">
-        
-
-
-        
-      </div>
-      <div class="form-group">
-        
-
-
-      </div>
-      <div class="form-group">
-        
-
-
-      </div>
-
-      <div class="form-group">
-        <input type="submit" value="Speichern" class="btn btn-primary" />
-      </div>
-    </form>
+      <form method="post">
+          <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+          <div class="form-group">
+              <label asp-for="Order.OrderNr" class="control-label">Bestellnummer</label>
+              <input asp-for="Order.OrderNr" class="form-control" />
+              <span asp-validation-for="Order.OrderNr" class="text-danger" />
+          </div>
+          <div class="form-group">
+              <label asp-for="Order.Date" class="control-label">Datum</label>
+              <input asp-for="Order.Date" class="form-control" type="date" />
+              <span asp-validation-for="Order.Date" class="text-danger" />
+          </div>
+          <div class="form-group">
+              <label asp-for="CustomerId" class="control-label">Kunde</label>
+              <select asp-for="CustomerId" class="form-control" asp-items="@Model.Customers"></select>
+          </div>
+          <div class="form-group">
+              <input type="submit" value="Speichern" class="btn btn-primary" />
+          </div>
+      </form>
   </div>
 </div>
 

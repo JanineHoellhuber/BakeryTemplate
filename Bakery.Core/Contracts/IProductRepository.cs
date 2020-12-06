@@ -1,4 +1,5 @@
-﻿using Bakery.Core.Entities;
+﻿using Bakery.Core.DTOs;
+using Bakery.Core.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,10 @@ namespace Bakery.Core.Contracts
   {
     Task<int> GetCountAsync();
     Task AddRangeAsync(IEnumerable<Product> products);
-  }
+        Task<IEnumerable<ProductDto>> GetFilteredProductsAsync(double priceFrom, double priceTo);
+        Task<Product[]> GetAllAsync();
+        Task AddAsync(Product product);
+        void Update(Product productDb);
+        Task<Product> GetByIdAsync(int id);
+    }
 }

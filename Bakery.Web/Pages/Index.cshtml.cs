@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bakery.Web.Pages
@@ -15,7 +16,8 @@ namespace Bakery.Web.Pages
     [Display(Name = "Nachname")]
     [BindProperty]
     public string FilterLastName { get; set; }
-    
+    public OrderDto[] Orders { get; set; }
+
     public IndexModel(IUnitOfWork uow)
     {
       _uow = uow;
@@ -23,12 +25,22 @@ namespace Bakery.Web.Pages
 
     public async Task<IActionResult> OnGet()
     {
-      return Page();
+            Orders = (await _uow.Orders
+                      .GetAllDtosAsync()).ToArray();
+
+
+            return Page();
     }
 
     public async Task<IActionResult> OnPostSearch()
     {
-      return Page();
+
+                Orders = (await _uow.Orders
+                  .GetFilteredByLastname(FilterLastName))
+                  .ToArray();
+            
+
+            return Page();
     }
   }
 }
