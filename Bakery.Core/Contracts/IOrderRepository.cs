@@ -8,7 +8,7 @@ namespace Bakery.Core.Contracts
   public interface IOrderRepository
   {
     Task<int> GetCountAsync();
-        Task<IEnumerable<OrderDto>> GetAllDtosAsync();
+        Task<IEnumerable<OrderDto>> GetDtosAsync();
         Task<IEnumerable<OrderDto>> GetFilteredByLastname(string filterLastName);
         void Add(Order order);
         Task<OrderWithItemsDto> GetByIdAsync(int id);

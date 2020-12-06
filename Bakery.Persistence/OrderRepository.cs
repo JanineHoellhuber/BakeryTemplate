@@ -22,7 +22,7 @@ namespace Bakery.Persistence
     }
 
 
-     public async Task<IEnumerable<OrderDto>> GetAllDtosAsync()
+     public async Task<IEnumerable<OrderDto>> GetDtosAsync()
         {
               return await _dbContext.Orders
                     .OrderBy(o => o.OrderNr)

@@ -1,4 +1,5 @@
 ﻿using Bakery.Core.Contracts;
+using Bakery.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -17,5 +18,8 @@ namespace Bakery.Persistence
     {
       return await _dbContext.OrderItems.CountAsync();
     }
-  }
+
+        public void Add(OrderItem orderItem)
+            => _dbContext.OrderItems.Add(orderItem);
+    }
 }

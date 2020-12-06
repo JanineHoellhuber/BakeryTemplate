@@ -26,7 +26,7 @@ namespace Bakery.Web.Pages
     public async Task<IActionResult> OnGet()
     {
             Orders = (await _uow.Orders
-                      .GetAllDtosAsync()).ToArray();
+                      .GetDtosAsync()).ToArray();
 
             if (Orders == null)
             {
